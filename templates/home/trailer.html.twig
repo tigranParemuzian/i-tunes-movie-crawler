@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ trailer.title }} iTunes Movie {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-5 mb-4">{{ trailer.title }}</h1>
+        <h2>{{ date('now')|date('Y-m-d H:i') }}</h2>
+        <h2>{{ app.request.attributes.get('_controller') }}</h2>
+        <table class="table table-bordered">
+                <tr>
+                    <td><a href="{{ path('trailer', {'id':trailer.id}) }}">{{ trailer.title }}</a>
+                        <p>{{ trailer.description }}</p>
+                        <p>Liked {{ trailer.userLikes.count }}</p>
+                        <a href="{{ path('movie-like', { 'id': trailer.id} ) }}">{% if trailer.checkIsLiked(app.user) == true %}Unlike{% else %}Like{% endif %}</a>
+                        <a href="{{ trailer.link }}" target="_blank">Source</a>
+                    </td>
+                    <td><img src="{{ trailer.image }}"></td>
+                </tr>
+        </table>
+        <a href="{{ path('main') }}">Return to list</a>
+    </div>
+{% endblock %}
+
